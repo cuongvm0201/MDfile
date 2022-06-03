@@ -194,3 +194,37 @@ o Tìm tất cả các Employee theo lastName và sắp xếp thứ tự theo fi
 o Tìm tất cả các Employee theo fistName không phân biệt hoa thường`
 
 ---
+## 15. Hãy nêu cách sử dụng của @NamedQuery và @Query. Cho ví dụ
+
+*@NamedQuery*
+Nếu bạn không sử dụng repository interface mà chỉ dùng EntityManager để thao tác dữ liệu. Query đó sử dụng ở nhiều nơi khác nhau thì có thể dùng @NamedQuery.
+```java
+@Entity(name ="oto") //tên entity sẽ sử dụng trong câu lệnh JPQL
+@Table(name = "car") //tên table sẽ sử dụng để lưu xuống bảng vật lý trong CSDL
+@Data //annotation của Lombok
+@NamedQuery(name = "Car.findById", query = "SELECT c FROM oto c WHERE c.id=:id")
+public class Car {
+@Id private long id; 
+private String model;
+private String maker;
+private int year; 
+}
+```
+
+*@Query*
+Với annotation @Query ta có thể khai báo câu query cho các method trong repository.
+
+Việc khai báo câu query với @Query giúp ta tối ưu câu sql, và xử lý trong những trường hợp mà các method do Spring Data không thể đáp ứng:
+
+Việc sử dụng các method có sẵn khi extends interface JPARepository, CrudRepository  không đáp ứng được yêu cầu.
+Việc đặt tên method theo chuẩn Query Creation quá dài hoặc tối nghĩa. (Ví dụ bạn muốn truy vấn theo 5 điều kiện thì tên method của bạn sẽ gồm 5 điều kiện đó => quá dài)
+
+```java
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+  @Query("SELECT e FROM Customer e WHERE e.name = :name AND e.address = :address")
+  List<Customer> findByNameAndAddress(@Param("name") String name, @Param("address") String address);
+}
+```
+
+----
