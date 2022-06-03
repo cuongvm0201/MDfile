@@ -210,21 +210,4 @@ private String maker;
 private int year; 
 }
 ```
-
-*@Query*
-Với annotation @Query ta có thể khai báo câu query cho các method trong repository.
-
-Việc khai báo câu query với @Query giúp ta tối ưu câu sql, và xử lý trong những trường hợp mà các method do Spring Data không thể đáp ứng:
-
-Việc sử dụng các method có sẵn khi extends interface JPARepository, CrudRepository  không đáp ứng được yêu cầu.
-Việc đặt tên method theo chuẩn Query Creation quá dài hoặc tối nghĩa. (Ví dụ bạn muốn truy vấn theo 5 điều kiện thì tên method của bạn sẽ gồm 5 điều kiện đó => quá dài)
-
-```java
-@Repository
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-  @Query("SELECT e FROM Customer e WHERE e.name = :name AND e.address = :address")
-  List<Customer> findByNameAndAddress(@Param("name") String name, @Param("address") String address);
-}
-```
-
 ----
