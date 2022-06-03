@@ -192,7 +192,8 @@ o Tìm tất cả các Employee theo emailAddress và lastName
 o Tìm tất cả các Employee khác nhau theo firstName hoặc lastName
 o Tìm tất cả các Employee theo lastName và sắp xếp thứ tự theo firstName tăng dần
 o Tìm tất cả các Employee theo fistName không phân biệt hoa thường`
-`code đính kèm trong thư mục link`
+
+```code đính kèm trong thư mục link```
 ---
 ## 15. Hãy nêu cách sử dụng của @NamedQuery và @Query. Cho ví dụ
 
